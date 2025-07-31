@@ -1,0 +1,23 @@
+[Unit]
+Description=Raspberry Pi Zero W Camera Flask Server
+After=network-online.target
+    # Ensures network is up before starting
+Wants=network-online.target
+
+[Service]
+User=camera_user
+                      # Run as your 'pi' user (or your custom user)
+Group=camera_user
+                     # Run as 'pi' group (or your custom group)
+# IMPORTANT: Change to your project directory
+WorkingDirectory=/home/camera_user/camera_project/
+# IMPORTANT: Adjust paths
+ExecStart=/home/camera_user/camera_project/env/bin/python /home/camera_user/camera_project/simple_cam>Restart=on-failure
+           # Restart if the script exits with an error
+# For more verbose logging (optional, uncomment if needed for debugging)
+# StandardOutput=append:/var/log/pizero-camera.log
+# StandardError=append:/var/log/pizero-camera.log
+
+[Install]
+WantedBy=multi-user.target
+   # Start automatically when the system reaches multi-user state
